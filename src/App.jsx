@@ -7,6 +7,8 @@ import './App.css'
 function ProtectedRoute({ children }) {
   const { user, loading } = useAuth()
   
+  console.log('ProtectedRoute - loading:', loading, 'user:', user)
+  
   if (loading) {
     return (
       <div className="loading-screen">
@@ -31,6 +33,8 @@ function ProtectedRoute({ children }) {
 
 function AppRoutes() {
   const { user, loading } = useAuth()
+
+  console.log('AppRoutes - loading:', loading, 'user:', user)
 
   if (loading) {
     return (
@@ -60,6 +64,7 @@ function AppRoutes() {
 }
 
 function App() {
+  console.log('App component rendering')
   return (
     <BrowserRouter>
       <AuthProvider>
