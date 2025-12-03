@@ -7,6 +7,7 @@ export default function Login() {
   const [password, setPassword] = useState('')
   const [displayName, setDisplayName] = useState('')
   const [error, setError] = useState('')
+  const [success, setSuccess] = useState('')
   const [loading, setLoading] = useState(false)
   
   const { signIn, signUp } = useAuth()
@@ -14,6 +15,7 @@ export default function Login() {
   async function handleSubmit(e) {
     e.preventDefault()
     setError('')
+    setSuccess('')
     setLoading(true)
 
     try {
@@ -22,6 +24,11 @@ export default function Login() {
           throw new Error('Please enter your name')
         }
         await signUp(email, password, displayName)
+        setSuccess('Account created! Check your email to confirm your account, then sign in.')
+        setIsSignUp(false)
+        setEmail('')
+        setPassword('')
+        setDisplayName('')
       } else {
         await signIn(email, password)
       }
@@ -43,6 +50,7 @@ export default function Login() {
 
         <form className="login-form" onSubmit={handleSubmit}>
           {error && <div className="error-message">{error}</div>}
+          {success && <div className="success-message">{success}</div>}
           
           {isSignUp && (
             <div className="form-group">
